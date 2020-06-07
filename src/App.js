@@ -15,7 +15,12 @@ import {
 
 import Home from 'pages/Home';
 
-const { Header, Sider, Content } = Layout;
+import NotFound from 'components/NotFound';
+import PrivateRoute from 'components/PrivateRoute';
+
+import ProfileContainer from 'containers/ProfileContainer';
+
+const { Header, Sider } = Layout;
 
 function App() {
 
@@ -32,38 +37,37 @@ function App() {
           <div className="logo" />
           <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
             <Menu.Item key="1" icon={<UserOutlined />}>
-              nav 1
+              Home
             </Menu.Item>
             <Menu.Item key="2" icon={<VideoCameraOutlined />}>
-              nav 2
+              News
             </Menu.Item>
             <Menu.Item key="3" icon={<UploadOutlined />}>
-              nav 3
+              Login
+            </Menu.Item>
+            <Menu.Item key="4" icon={<UploadOutlined />}>
+              Profile
             </Menu.Item>
           </Menu>
         </Sider>
+
         <Layout className="site-layout">
+
           <Header className="site-layout-background" style={{ padding: 0 }}>
             {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
               className: 'trigger',
               onClick: toggle,
             })}
           </Header>
-          <Content
-            className="site-layout-background"
-            style={{
-              margin: '24px 16px',
-              padding: 24,
-              minHeight: 280,
-            }}
-          >
-            Content
-          </Content>
+
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <PrivateRoute path="/profile" component={ProfileContainer} />
+            <Route component={NotFound} />
+          </Switch>
+
         </Layout>
       </Layout>
-      <Switch>
-        <Route path="/" component={Home} />
-      </Switch>
     </Router>
   );
 }
