@@ -16,8 +16,8 @@ import {
 import Home from 'pages/Home';
 
 import NotFound from 'components/NotFound';
-import PrivateRoute from 'components/PrivateRoute';
 
+import PrivateRoute from 'containers/PrivateRoute';
 import ProfileContainer from 'containers/ProfileContainer';
 
 const { Header, Sider } = Layout;
