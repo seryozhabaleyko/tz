@@ -2,7 +2,7 @@ import React, {Suspense, lazy, useState} from 'react';
 import {
     BrowserRouter as Router,
     Switch,
-    Route,
+    Route, Link,
 } from 'react-router-dom';
 import {Layout, Menu, Spin} from 'antd';
 import {
@@ -16,8 +16,10 @@ import {
 import PrivateRoute from 'containers/PrivateRoute';
 
 const NotFound = lazy(() => import('components/NotFound'));
-const Home = lazy(() => import('pages/Home'));
 const ProfileContainer = lazy(() => import('containers/ProfileContainer'));
+const HomeContainer = lazy(() => import('pages/Home/HomeContainer'));
+const NewsContainer = lazy(() => import('pages/News/NewsContainer'));
+const LoginContainer = lazy(() => import('pages/Login/LoginContainer'));
 
 const {Header, Sider} = Layout;
 
@@ -37,16 +39,24 @@ function App() {
                     <div className="logo"/>
                     <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
                         <Menu.Item key="1" icon={<UserOutlined/>}>
-                            Home
+                            <Link to="/">
+                                Home
+                            </Link>
                         </Menu.Item>
                         <Menu.Item key="2" icon={<VideoCameraOutlined/>}>
-                            News
+                            <Link to="/news">
+                                News
+                            </Link>
                         </Menu.Item>
                         <Menu.Item key="3" icon={<UploadOutlined/>}>
-                            Login
+                            <Link to="/login">
+                                Login
+                            </Link>
                         </Menu.Item>
                         <Menu.Item key="4" icon={<UploadOutlined/>}>
-                            Profile
+                            <Link to="/profile">
+                                Profile
+                            </Link>
                         </Menu.Item>
                     </Menu>
                 </Sider>
@@ -62,7 +72,9 @@ function App() {
 
                     <Suspense fallback={<Spin/>}>
                         <Switch>
-                            <Route exact path="/" component={Home}/>
+                            <Route exact path="/" component={HomeContainer}/>
+                            <Route path="/news" component={NewsContainer}/>
+                            <Route path="/login" component={LoginContainer}/>
                             <PrivateRoute path="/profile" component={ProfileContainer}/>
                             <Route component={NotFound}/>
                         </Switch>
